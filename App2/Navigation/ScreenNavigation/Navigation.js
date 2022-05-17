@@ -113,7 +113,8 @@ function Home() {
         tabBarInactiveTintColor: "#A8A8A8",
       }}
     >
-      <Tab.Screen
+      {/* todo: Home Screen  */}
+      {/* <Tab.Screen
         name="Home"
         component={HomeScreen}
         options={{
@@ -130,7 +131,9 @@ function Home() {
             fontWeight: "700",
           },
         }}
-      />
+      /> */}
+      {/* todo: Home Screen  */}
+
       <Tab.Screen
         name="Consultant"
         component={ConsultantScreen}

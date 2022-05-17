@@ -1,128 +1,182 @@
 import React, { useState } from "react";
 import { Dimensions, Image, StyleSheet, View } from "react-native";
-///////////////////////////////////////////////////////////////////////////
-import AppButton from "../../Components/AppComponents/AppButton";
-import AppColors from "../../Config/AppColors";
+//////////////////////////////////////////////////////////////
 import AppText from "../../Components/AppComponents/AppText";
+import AppTouchableHighlight from "../../Components/AppComponents/AppTouchableHighlight";
 import AppTouchableOpacity from "../../Components/AppComponents/AppTouchableOpacity";
+import AppButton from "../../Components/AppComponents/AppButton";
 import AppScreen from "../../Components/AppComponents/AppScreen";
-///////////////////////////////////////////////////////////////////////////
-const { width } = Dimensions.get("screen");
-///////////////////////////////////////////////////////////////////////////
+import AppColors from "../../Config/AppColors";
+//////////////////////////////////////////////////////////////
+const { width, height } = Dimensions.get("screen");
+//////////////////////////////////////////////////////////////
 
 function WelcomeScreen({ navigation }) {
-  const [showMoreOptions, serShowMoreOptions] = useState(true);
+  const [showMoreOptions, setShowMoreOptions] = useState(false);
 
+  //:: Google Button
   const onGoogleLogInPressed = () => {
     console.log("on google login pressed");
-    navigation.navigate("AddInterestScreen");
+    navigation.navigate("HomeScreen");
   };
 
+  //:: Facebook Log In
   const onFacebookLogInPressed = () => {
-    console.log("on facebook log in button pressed");
-    navigation.navigate("AddInterestScreen");
+    console.log("on facebook log in press");
+    navigation.navigate("HomeScreen");
   };
 
-  const onMoreOptionsButtonPressed = () => {
-    console.log("on more options button pressed");
-    serShowMoreOptions(() => !showMoreOptions);
+  // :: LinkedIn Log In
+  const onLinkedInLogInPressed = () => {
+    console.log("on linked in log in");
+    navigation.navigate("HomeScreen");
   };
 
-  const onTroubleLogInPressed = () => {
-    console.log("on trouble log in pressed");
+  //:: onEmailOrPhoneLogInTextTouch
+  const onEmailOrPhoneLogInTextTouch = () => {
+    console.log("on email or phone");
     navigation.navigate("SignInScreen");
   };
 
-  const onCreateOneTextPressed = () => {
-    console.log("on create one text pressed");
-    navigation.navigate("SignUpOptionsScreen");
+  //:: Terms And Conditions
+  const onTermsAndConditions = () => {
+    console.log("on terms and condition");
+  };
+
+  //:: More Options Text
+  const onMoreOptionTextTouched = () => {
+    console.log("on more options press");
+    setShowMoreOptions(!showMoreOptions);
   };
 
   return (
     <>
       <AppScreen style={[styles.screen]}>
         <View style={[styles.container]}>
-          {/* ////////////// sub: Header ///////////////// */}
-          <View style={styles.headerContainer}>
+          {/* /////////////// sub: Header ///////////////// */}
+          <View style={[styles.header]}>
             <Image
               source={require("../../Assets/logo.png")}
-              style={[styles.appLogo]}
+              style={[styles.logo]}
               resizeMode="contain"
             />
+            <AppText style={[styles.text]}>This is tag line</AppText>
           </View>
-          {/* ////////////// sub: Header ///////////////// */}
+          {/* /////////////// sub: Header ///////////////// */}
 
-          {/* ////////////// sub: Footer ///////////////// */}
-          <View style={[styles.footer]}>
-            {/* //////// Details //////// */}
-            <AppText style={styles.text}>
-              Welcome To Best Consulting Platfrom.
+          {/* /////////////// sub: Body ///////////////// */}
+          <View style={[styles.bodyContainer]}>
+            {/* :: Terms and conditions  */}
+            <AppText style={[styles.text, { margin: 14 }]}>
+              By Clicking "Log In", you agree with our
+              <AppText
+                style={[styles.text, { color: AppColors.primaryRed }]}
+                onPress={onTermsAndConditions}
+              >
+                {" "}
+                Terms and Conditions{" "}
+              </AppText>
+              and{" "}
+              <AppText style={[styles.text, { color: AppColors.primaryRed }]}>
+                Privacy Polices
+              </AppText>
             </AppText>
-            {/* //////// Details //////// */}
-            {/* //////// Options //////// */}
-            <View>
-              <AppTouchableOpacity onPress={onGoogleLogInPressed}>
-                <AppButton
-                  ContainerStyle={[styles.signInOptionContainer]}
-                  IconImage={require("../../Assets/google2.png")}
-                  iconImageStyle={{ borderRadius: 0, marginHorizontal: 5 }}
-                  textStyle={[styles.textStyle]}
-                  title="Log in with google"
-                />
-              </AppTouchableOpacity>
-              {showMoreOptions && (
-                <AppTouchableOpacity onPress={onMoreOptionsButtonPressed}>
-                  <AppText style={[styles.moreOptionsText]}>
+
+            {/* :: Google Log In  */}
+            <AppTouchableOpacity
+              onPress={onGoogleLogInPressed}
+              style={{ width: "100%" }}
+            >
+              <AppButton
+                ContainerStyle={[styles.signInOptionContainer]}
+                IconImage={require("../../Assets/google2.png")}
+                iconImageStyle={{ borderRadius: 0, marginHorizontal: 5 }}
+                textStyle={[styles.buttonTextStyle]}
+                title="Log in with google"
+              />
+            </AppTouchableOpacity>
+
+            {/* :: More Options  */}
+            {showMoreOptions && (
+              <>
+                {/* :: Facebook Log In  */}
+                <AppTouchableOpacity
+                  onPress={onFacebookLogInPressed}
+                  style={{ width: "100%" }}
+                >
+                  <AppButton
+                    ContainerStyle={[styles.signInOptionContainer]}
+                    IconImage={require("../../Assets/facebook.png")}
+                    iconImageStyle={{ borderRadius: 0, marginHorizontal: 5 }}
+                    textStyle={[styles.buttonTextStyle]}
+                    title="Log in with facebook"
+                  />
+                </AppTouchableOpacity>
+
+                {/* :: LinkedIn Log In  */}
+                <AppTouchableOpacity
+                  onPress={onLinkedInLogInPressed}
+                  style={{ width: "100%" }}
+                >
+                  <AppButton
+                    ContainerStyle={[styles.signInOptionContainer]}
+                    IconImage={require("../../Assets/linkedin.png")}
+                    iconImageStyle={{ borderRadius: 0, marginHorizontal: 5 }}
+                    textStyle={[styles.buttonTextStyle]}
+                    title="Log in with linkedin"
+                  />
+                </AppTouchableOpacity>
+
+                {/* :: Email or Phone  */}
+                <AppTouchableOpacity
+                  style={{
+                    padding: width * 0.08,
+                    width: "100%",
+                  }}
+                >
+                  <AppText style={[styles.text, { fontSize: 16 }]}>
+                    Log In with{" "}
+                    <AppText
+                      style={[styles.text, { color: "red", fontSize: 16 }]}
+                      onPress={onEmailOrPhoneLogInTextTouch}
+                    >
+                      Email
+                    </AppText>
+                    <AppText style={[styles.text, { fontSize: 16 }]}>
+                      {" "}
+                      /{" "}
+                    </AppText>
+                    <AppText
+                      style={[styles.text, { color: "red", fontSize: 16 }]}
+                      onPress={onEmailOrPhoneLogInTextTouch}
+                    >
+                      Phone
+                    </AppText>
+                  </AppText>
+                </AppTouchableOpacity>
+              </>
+            )}
+
+            {/* :: More Options Text  */}
+            {!showMoreOptions && (
+              <>
+                <AppTouchableOpacity
+                  style={{
+                    padding: width * 0.1,
+                    width: "100%",
+                  }}
+                >
+                  <AppText
+                    style={[styles.text, { fontSize: 16 }]}
+                    onPress={onMoreOptionTextTouched}
+                  >
                     More Options
                   </AppText>
                 </AppTouchableOpacity>
-              )}
-              {!showMoreOptions && (
-                <>
-                  <View>
-                    <AppTouchableOpacity onPress={onFacebookLogInPressed}>
-                      <AppButton
-                        ContainerStyle={[styles.signInOptionContainer]}
-                        IconImage={require("../../Assets/facebook.png")}
-                        iconImageStyle={{
-                          borderRadius: 0,
-                          marginHorizontal: 5,
-                        }}
-                        textStyle={[styles.textStyle]}
-                        title="log in with facebook"
-                      />
-                    </AppTouchableOpacity>
-                    <AppTouchableOpacity onPress={onTroubleLogInPressed}>
-                      <AppText style={[styles.text]}>
-                        Trouble logging in?
-                      </AppText>
-                    </AppTouchableOpacity>
-                    <AppTouchableOpacity onPress={onTroubleLogInPressed}>
-                      <AppText
-                        style={[
-                          styles.text,
-                          { marginVertical: 0, marginBottom: 28 },
-                        ]}
-                      >
-                        Don't have an account{" "}
-                        <AppText
-                          style={[
-                            styles.text,
-                            { color: "red", fontFamily: "SemiBold" },
-                          ]}
-                          onPress={onCreateOneTextPressed}
-                        >
-                          create one?
-                        </AppText>
-                      </AppText>
-                    </AppTouchableOpacity>
-                  </View>
-                </>
-              )}
-            </View>
-            {/* //////// Options //////// */}
+              </>
+            )}
           </View>
-          {/* ////////////// sub: Footer ///////////////// */}
+          {/* /////////////// sub: Body ///////////////// */}
         </View>
       </AppScreen>
     </>
@@ -130,36 +184,42 @@ function WelcomeScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  container: {
+  bodyContainer: {
+    // backgroundColor: "red",
+    width: "85%",
     alignItems: "center",
+    marginBottom: width * 0.05,
+  },
+
+  buttonTextStyle: {
+    color: AppColors.primaryBlack,
+    fontSize: 16,
+    fontFamily: "SemiBold",
+    textTransform: "uppercase",
+  },
+
+  container: {
+    // backgroundColor: "green",
     flex: 1,
-    justifyContent: "space-between",
-    width: "80%",
-  },
-
-  appLogo: {
-    height: "100%",
-    marginVertical: 120,
     width: "100%",
+    alignItems: "center",
+    justifyContent: "space-between",
   },
 
-  headerContainer: {
-    height: width * 0.3,
-    marginBottom: 32,
+  header: {
+    // backgroundColor: "yellow",
+    alignItems: "center",
+    width: "80%",
+    marginTop: width * 0.4,
+  },
+
+  logo: {
+    // backgroundColor: "pink",
     width: width * 0.7,
   },
 
-  moreOptionsText: {
-    fontFamily: "SemiBold",
-    fontSize: 18,
-    marginBottom: 32,
-    marginTop: 12,
-    textAlign: "center",
-  },
-
   screen: {
-    alignItems: "center",
-    backgroundColor: AppColors.primaryWhite,
+    // backgroundColor: "red",
     flex: 1,
     width: width,
   },
@@ -169,25 +229,16 @@ const styles = StyleSheet.create({
     borderRadius: 100,
     elevation: 10,
     justifyContent: "flex-start",
-    marginVertical: 8,
+    marginVertical: 16,
     padding: 12,
     paddingHorizontal: 18,
   },
 
   text: {
-    color: "black",
-    fontFamily: "Medium",
-    fontSize: 16,
-    marginHorizontal: 14,
-    marginVertical: 16,
-    textAlign: "center",
-  },
-
-  textStyle: {
-    color: AppColors.primaryBlack,
+    // backgroundColor: "yellow",
+    fontSize: 14,
     fontFamily: "SemiBold",
-    fontSize: 15,
-    textTransform: "uppercase",
+    textAlign: "center",
   },
 });
 export default WelcomeScreen;

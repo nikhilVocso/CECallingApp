@@ -115,14 +115,17 @@ import TopBarNavigation from "./App2/Navigation/TopBarNavigation";
 import TabBarNavigation from "./App2/Navigation/TabBarNavigation";
 
 //////////// currently working ///////////////////////
-import Rough from "./App2/Components/FeedCardComponent/Rough";
+import Rough from "./App2/Screens/Rough";
+import AppModal from "./App2/Components/AppComponents/AppModal";
+import SplashScreen from "./App2/Screens/SignInScreen/SplashScreen";
 
 export default function App() {
   return (
     <>
       <View style={styles.container}>
-        {/* <AddInterestScreen /> */}
-        <ProfileScreen />
+        {/* <Navigation /> */}
+        {/* <HomeScreen /> */}
+        <WelcomeScreen />
       </View>
     </>
   );

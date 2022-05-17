@@ -1,13 +1,6 @@
 import React, { useState } from "react";
-import {
-  Alert,
-  Modal,
-  StyleSheet,
-  Text,
-  Pressable,
-  View,
-  Image,
-} from "react-native";
+import { StyleSheet, View, Image } from "react-native";
+import { Modal, Portal, Text, Button, Provider } from "react-native-paper";
 ///////////////////////////////////////////////////////////////////////
 import AppColors from "../../Config/AppColors";
 import AppFABButton from "../AppComponents/AppFABButton";
@@ -46,7 +39,11 @@ const modalOptions = [
 ///////////////////////////////////////////////////////////////////////
 
 function ProfileScreenHeader({}) {
-  const [modalVisible, setModalVisible] = useState(false);
+  const [visible, setVisible] = React.useState(false);
+
+  const showModal = () => setVisible(true);
+  const hideModal = () => setVisible(false);
+  const modalContainerStyle = { backgroundColor: "white", padding: 20 };
 
   const onBackButtonPress = () => {
     console.log("On Back Button Press");
@@ -54,6 +51,7 @@ function ProfileScreenHeader({}) {
 
   const onMoreIconPress = () => {
     console.log("On More Icon Press");
+    showModal();
   };
 
   return (
@@ -66,108 +64,75 @@ function ProfileScreenHeader({}) {
             style={{ backgroundColor: "transparent" }}
           />
         </AppTouchableHighlight>
-        <View>
-          <Modal
-            animationType="slide"
-            transparent={true}
-            visible={modalVisible}
-            onRequestClose={() => {
-              Alert.alert("Modal has been closed.");
-              setModalVisible(!modalVisible);
-            }}
-          >
-            <View style={[styles.modalContainer]}>
-              <View>
-                {modalOptions.map((item) => (
-                  <View style={[styles.modalOptionContainer]}>
-                    <Image
-                      source={item.icon}
-                      style={[styles.modalOptionIcon]}
-                    />
-                    <View style={{ marginHorizontal: 12 }}>
-                      <AppText style={[styles.modalOptionTitle]}>
-                        {item.title}
-                      </AppText>
-                    </View>
-                  </View>
-                ))}
-              </View>
-              <View>
-                <AppFABButton
-                  name="close"
-                  style={styles.modalCloseIcon}
-                  onPress={() => setModalVisible(!modalVisible)}
-                />
-              </View>
-            </View>
-          </Modal>
 
-          <AppTouchableHighlight onPress={() => setModalVisible(true)}>
-            <AppFABButton name="more-vert" style={styles.moreIcon} />
-          </AppTouchableHighlight>
-        </View>
+        <AppTouchableHighlight onPress={onMoreIconPress}>
+          <AppFABButton name="more-vert" style={styles.moreIcon} />
+        </AppTouchableHighlight>
       </View>
+      {/* //////////////////////////////// */}
+      <Provider>
+        <Portal>
+          <Modal
+            visible={visible}
+            onDismiss={hideModal}
+            contentContainerStyle={styles.modalContainerStyle}
+          >
+            {modalOptions.map((item) => (
+              <AppTouchableHighlight
+                style={[styles.optionContainer]}
+                onPress={() => console.log("onPress")}
+              >
+                <Image source={item.icon} style={[styles.modalIconStyle]} />
+                <AppText style={[styles.optionText]}>{item.title}</AppText>
+              </AppTouchableHighlight>
+            ))}
+          </Modal>
+        </Portal>
+      </Provider>
+      {/* //////////////////////////////// */}
     </>
   );
 }
 ////////////////////////////////////////////////////////////////////////////////////
 
 const styles = StyleSheet.create({
-  //////////////////////
-  modalContainer: {
-    backgroundColor: AppColors.secondaryWhite,
+  headerContainer: {
+    backgroundColor: AppColors.primaryWhite,
+    backgroundColor: "red",
     flexDirection: "row",
     justifyContent: "space-between",
-    alignItems: "flex-start",
+    alignItems: "center",
+  },
+
+  modalContainerStyle: {
+    backgroundColor: "red",
     position: "absolute",
     bottom: 0,
     width: "100%",
     padding: 14,
-    borderTopLeftRadius: 18,
     borderTopRightRadius: 18,
+    borderTopLeftRadius: 18,
   },
 
-  modalCloseIcon: {
-    alignSelf: "flex-end",
-  },
-
-  modalOptionIcon: {
+  modalIconStyle: {
+    // backgroundColor: "green",
     width: 32,
     height: 32,
   },
 
-  modalOptionContainer: {
+  optionContainer: {
+    // backgroundColor: "yellow",
     flexDirection: "row",
     justifyContent: "flex-start",
     alignItems: "center",
-    marginVertical: 16,
+    padding: 14,
   },
 
-  modalOptionTitle: {
+  optionText: {
+    // backgroundColor: "pink",
     fontSize: 18,
     fontFamily: "SemiBold",
-    textTransform: "capitalize",
-  },
-
-  modalOptionSubtitle: {
-    fontSize: 14,
-    fontFamily: "Medium",
-    textTransform: "capitalize",
-  },
-
-  moreIcon: {
-    backgroundColor: "transparent",
-    padding: 15,
-  },
-  //////////////////////
-
-  container: {},
-
-  headerContainer: {
-    backgroundColor: AppColors.primaryWhite,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
+    paddingHorizontal: 12,
   },
 });
 export default ProfileScreenHeader;
