@@ -9,7 +9,7 @@ function AppTouchableHighlight({ children, onPress, style, ...props }) {
       <TouchableHighlight
         onPress={onPress}
         style={style}
-        underlayColor={AppColors.secondaryBlack}
+        underlayColor={AppColors.secondaryWhite}
         {...props}
       >
         <>{children}</>

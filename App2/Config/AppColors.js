@@ -23,6 +23,7 @@ const AppColors = {
   primaryYellow: "#FFE060",
   ///////////////////////
   primaryBlue: "blue",
+  secondaryBlue: "#258DEC",
 };
 
 export default AppColors;

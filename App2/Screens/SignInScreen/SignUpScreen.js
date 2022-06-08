@@ -1,6 +1,7 @@
 import React from "react";
 import { View, StyleSheet, Dimensions, ScrollView, Image } from "react-native";
 import { TextInput } from "react-native-paper";
+import SelectableChips from "react-native-chip/SelectableChips";
 /////////////////////////////////////////////////////////////////////////////////////
 import AppButton from "../../Components/AppComponents/AppButton";
 import AppColors from "../../Config/AppColors";
@@ -9,24 +10,46 @@ import AppText from "../../Components/AppComponents/AppText";
 import AppTouchableOpacity from "../../Components/AppComponents/AppTouchableOpacity";
 import AppNavBar from "../../Components/AppComponents/AppNavBar";
 /////////////////////////////////////////////////////////////////////////////////////
-const { width } = Dimensions.get("screen");
+const { width, height } = Dimensions.get("screen");
+const categoryType = [
+  "Nikhil",
+  "Deepak",
+  "Varsa",
+  "Anju",
+  "Kaplana",
+  "Vishal",
+  "Sumit",
+  "Archit",
+  "Shubham",
+];
 /////////////////////////////////////////////////////////////////////////////////////
 function SignUpScreen({ navigation }) {
-  const [username, setUserName] = React.useState("");
+  const [fullName, setFullName] = React.useState("");
   const [email, setEmail] = React.useState("");
-  const [phone, setPhone] = React.useState("");
-  const [password, setPassword] = React.useState("");
-  const [confirmPassword, setConfirmPassword] = React.useState("");
 
-  const onRegisterButtonPressed = () => {
-    console.log("on Register button pressed");
-    navigation.navigate("ConfirmationMailSendScreen");
+  const onBackButtonPress = () => {
+    console.log("on back button press");
+    navigation.goBack();
   };
 
-  const onClickHereTextTouched = () => {
-    console.log("on create one text pressed");
-    navigation.navigate("WelcomeScreen");
+  const onChangeChips = (Chips) => {
+    console.log(Chips);
   };
+
+  const onRegisterButtonPress = () => {
+    console.log("Register");
+    navigation.navigate("AddMoreDetails");
+  };
+
+  // const onBecomeProfessionalButtonPress = () => {
+  //   console.log("on Register button pressed");
+  //   navigation.navigate("AddMoreDetails");
+  // };
+
+  // const onSkipButtonPress = () => {
+  //   console.log("on Skip Button Press");
+  //   navigation.navigate("HomeScreen");
+  // };
 
   const onTermsOfUseTouched = () => {
     console.log("on terms of use");
@@ -37,169 +60,150 @@ function SignUpScreen({ navigation }) {
     console.log("privacy policy");
     navigation.navigate("PrivacyPolicy");
   };
+
   return (
     <>
-      <AppScreen style={styles.screen}>
+      <AppScreen style={[styles.screen]}>
         <ScrollView
           showsVerticalScrollIndicator={false}
           stickyHeaderIndices={[0]}
         >
           {/* ///////////// sub: Header /////////////// */}
           <AppNavBar
-            navbarTitleText="Create an account"
+            navbarTitleText="Add Details"
             navbarContainerStyle={[styles.appNavBar]}
+            onBackButtonPress={onBackButtonPress}
           />
           {/* ///////////// sub: Header /////////////// */}
-          <View style={[styles.container]}>
-            <View style={[styles.signInSingUpContainer]}>
-              {/* :: username  */}
-              <TextInput
-                activeUnderlineColor={AppColors.primaryBlack}
-                label="Username"
-                onChangeText={(username) => setUserName(username)}
-                style={[styles.textInput]}
-                value={username}
-              />
-              {/* :: Email */}
-              <TextInput
-                activeUnderlineColor={AppColors.primaryBlack}
-                label="Email"
-                onChangeText={(email) => setEmail(email)}
-                style={[styles.textInput]}
-                value={email}
-              />
-              {/* :: Phone */}
-              <TextInput
-                activeUnderlineColor={AppColors.primaryBlack}
-                label="Phone"
-                onChangeText={(phone) => setPhone(phone)}
-                style={[styles.textInput]}
-                value={phone}
-              />
-              {/* :: Password */}
-              <TextInput
-                activeUnderlineColor={AppColors.primaryBlack}
-                label="Password"
-                onChangeText={(password) => setPassword(password)}
-                style={[styles.textInput]}
-                value={password}
-              />
-              {/* :: Confirm Password */}
-              <TextInput
-                activeUnderlineColor={AppColors.primaryBlack}
-                label="Confirm Password"
-                onChangeText={(confirmPassword) =>
-                  setConfirmPassword(confirmPassword)
-                }
-                style={[styles.textInput]}
-                value={confirmPassword}
-              />
 
-              {/* :: Register Button Pressed */}
-              <AppTouchableOpacity onPress={onRegisterButtonPressed}>
-                <AppButton
-                  ContainerStyle={{
-                    borderRadius: 100,
-                    elevation: 10,
-                    marginVertical: 14,
-                  }}
-                  textStyle={styles.buttonTextStyle}
-                  title="Register"
-                ></AppButton>
-              </AppTouchableOpacity>
-              {/* :: Terms Of Use */}
-              <AppText style={[styles.byRegisteringText]}>
-                By registering, you Confirm that you accept our{" "}
-                <AppText
-                  style={{ color: "red", fontFamily: "SemiBold" }}
-                  onPress={onTermsOfUseTouched}
-                >
-                  Terms of Use
-                </AppText>{" "}
-                and{" "}
-                <AppText
-                  style={{ color: "red", fontFamily: "SemiBold" }}
-                  onPress={onPrivacyPolicyTouched}
-                >
-                  Privacy Policy
-                </AppText>
+          {/* ///////////// sub: Body /////////////// */}
+          <View style={[styles.bodyContainer]}>
+            {/* :: Name  */}
+            <TextInput
+              activeUnderlineColor={AppColors.primaryBlack}
+              label="Full Name"
+              onChangeText={(fullName) => setFullName(fullName)}
+              style={[styles.textInput]}
+              value={fullName}
+            />
+            {/* :: Email  */}
+            <TextInput
+              activeUnderlineColor={AppColors.primaryBlack}
+              label="Email"
+              onChangeText={(email) => setEmail(email)}
+              style={[styles.textInput]}
+              value={email}
+            />
+            {/* :: Interest Chips  */}
+            <AppText style={[styles.text]}>Select Your Preferences</AppText>
+            <SelectableChips
+              initialChips={categoryType}
+              onChangeChips={onChangeChips}
+              alertRequired={false}
+              chipStyle={[styles.chipsStyle]}
+              valueStyle={[styles.valueStyle]}
+              chipStyleSelected={[styles.chipStyleSelected]}
+              valueStyleSelected={[styles.valueStyleSelected]}
+            />
+            {/* :: Register */}
+            <AppTouchableOpacity
+              onPress={onRegisterButtonPress}
+              style={{ width: "100%" }}
+            >
+              <AppButton
+                ContainerStyle={{
+                  borderRadius: 100,
+                  elevation: 10,
+                  marginVertical: 14,
+                }}
+                textStyle={styles.buttonTextStyle}
+                title="Update"
+              ></AppButton>
+            </AppTouchableOpacity>
+            {/* :: Become a professional
+            <AppTouchableOpacity
+              onPress={onBecomeProfessionalButtonPress}
+              style={{ width: "100%" }}
+            >
+              <AppButton
+                ContainerStyle={{
+                  borderRadius: 100,
+                  elevation: 10,
+                  marginVertical: 14,
+                }}
+                textStyle={styles.buttonTextStyle}
+                title="Become a Professional ?"
+              ></AppButton>
+            </AppTouchableOpacity> */}
+            {/* :: Skip Button */}
+            {/* <AppTouchableOpacity
+              onPress={onSkipButtonPress}
+              style={{ width: "100%" }}
+            >
+              <AppButton
+                ContainerStyle={{
+                  backgroundColor: "transparent",
+                  borderWidth: 2,
+                  borderRadius: 100,
+                  marginVertical: 14,
+                }}
+                textStyle={[
+                  styles.buttonTextStyle,
+                  { color: AppColors.primaryBlack },
+                ]}
+                title="Skip"
+              ></AppButton>
+            </AppTouchableOpacity> */}
+            {/* :: Terms Of Use */}
+            <AppText style={[styles.byRegisteringText]}>
+              By registering, you Confirm that you accept our{" "}
+              <AppText
+                style={{ color: "red", fontFamily: "SemiBold" }}
+                onPress={onTermsOfUseTouched}
+              >
+                Terms of Use
+              </AppText>{" "}
+              and{" "}
+              <AppText
+                style={{ color: "red", fontFamily: "SemiBold" }}
+                onPress={onPrivacyPolicyTouched}
+              >
+                Privacy Policy
               </AppText>
-            </View>
-            {/* //////////// sub: Header ////////////// */}
-
-            {/* //////////// sub: Footer ////////////// */}
-            <View style={styles.footerStyle}>
-              <AppText style={[styles.footerText, { marginVertical: 0 }]}>
-                Back To Welcome Screen?
-              </AppText>
-              <AppTouchableOpacity onPress={onClickHereTextTouched}>
-                <AppText
-                  style={[
-                    styles.footerText,
-                    { color: "red", marginVertical: 0 },
-                  ]}
-                >
-                  Click Here
-                </AppText>
-              </AppTouchableOpacity>
-            </View>
-            {/* //////////// sub: Footer ////////////// */}
+            </AppText>
           </View>
+          {/* ///////////// sub: Body /////////////// */}
         </ScrollView>
       </AppScreen>
     </>
   );
 }
 
-/////////////////////////////////////////////////////////////////////////////////
 const styles = StyleSheet.create({
   byRegisteringText: {
-    fontFamily: "SemiBold",
-    fontSize: 16,
+    fontFamily: "Medium",
     marginTop: 12,
-    paddingHorizontal: 12,
     textAlign: "center",
   },
 
   bodyContainer: {
-    marginVertical: 25,
-    width: "90%",
-  },
-
-  codeTextInput: {
-    backgroundColor: AppColors.primaryWhite,
-    fontFamily: "Bold",
-    fontSize: 18,
-    height: width * 0.15,
-    marginBottom: 18,
-    width: "100%",
-  },
-
-  container: {
     alignItems: "center",
+    padding: width * 0.05,
   },
 
-  footerStyle: {
-    alignItems: "center",
-    flexDirection: "column",
-    marginVertical: 24,
-  },
-
-  footerText: {
-    fontFamily: "SemiBold",
+  buttonTextStyle: {
+    color: AppColors.primaryWhite,
     fontSize: 16,
-    marginVertical: 10,
+    fontFamily: "SemiBold",
   },
 
-  appNavBar: {
-    marginBottom: 12,
+  chipsStyle: {
+    backgroundColor: AppColors.primaryWhite,
+    borderColor: AppColors.primaryBlack,
   },
 
-  logoContainer: {
-    height: width * 0.2,
-    marginBottom: 25,
-    marginTop: 50,
-    width: width * 0.5,
+  chipStyleSelected: {
+    backgroundColor: AppColors.primaryBlack,
   },
 
   screen: {
@@ -208,14 +212,27 @@ const styles = StyleSheet.create({
     width: width,
   },
 
-  signInSingUpContainer: {
-    width: "90%",
+  text: {
+    fontSize: 18,
+    fontFamily: "SemiBold",
+    marginVertical: width * 0.05,
+    borderBottomWidth: 2,
   },
 
   textInput: {
     backgroundColor: AppColors.primaryWhite,
-    marginVertical: 12,
+    marginVertical: width * 0.035,
     width: "100%",
+  },
+
+  valueStyle: {
+    color: AppColors.primaryBlack,
+    fontSize: 18,
+    fontWeight: "700",
+  },
+
+  valueStyleSelected: {
+    color: AppColors.primaryWhite,
   },
 });
 export default SignUpScreen;

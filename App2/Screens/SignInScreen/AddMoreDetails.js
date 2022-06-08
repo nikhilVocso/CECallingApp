@@ -1,9 +1,7 @@
 import React, { useState } from "react";
-import { Dimensions, View, StyleSheet } from "react-native";
-import SelectBox from "react-native-multi-selectbox";
-import { xorBy } from "lodash";
+import { Dimensions, StyleSheet, ScrollView, View } from "react-native";
 import { TextInput } from "react-native-paper";
-
+import SelectableChips from "react-native-chip/SelectableChips";
 ///////////////////////////////////////////////////////////////////////
 import AppText from "../../Components/AppComponents/AppText";
 import AppScreen from "../../Components/AppComponents/AppScreen";
@@ -13,88 +11,80 @@ import AppButton from "../../Components/AppComponents/AppButton";
 import AppSelectBox from "../../Components/AppComponents/AppSelectBox";
 import AppNavBar from "../../Components/AppComponents/AppNavBar";
 ///////////////////////////////////////////////////////////////////////
-const { width } = Dimensions.get("screen");
-const categories = [
-  {
-    item: "nikhil",
-    id: 1,
-  },
-  {
-    item: "deepak",
-    id: 2,
-  },
-  {
-    item: "shafali",
-    id: 3,
-  },
-  {
-    item: "varsa",
-    id: 4,
-  },
-  {
-    item: "kalpana",
-    id: 5,
-  },
-  {
-    item: "prem",
-    id: 6,
-  },
-  {
-    item: "darban",
-    id: 7,
-  },
-  {
-    item: "anju",
-    id: 8,
-  },
+const { width, height } = Dimensions.get("screen");
+const categoryType = [
+  "Nikhil",
+  "Deepak",
+  "Varsa",
+  "Anju",
+  "Kaplana",
+  "Vishal",
+  "Sumit",
+  "Archit",
+  "Shubham",
 ];
 ///////////////////////////////////////////////////////////////////////
 
 function AddMoreDetails({ navigation }) {
-  const [selectedTeams, setSelectedTeams] = useState([]);
-  const [businessName, setBusinessName] = React.useState("");
+  const [username, setUserName] = useState("");
   const [about, setAbout] = React.useState("");
   const [website, setWebsite] = React.useState("");
 
-  function onMultiChange() {
-    return (item) => setSelectedTeams(xorBy(selectedTeams, [item], "id"));
-  }
-
   const onBackButtonPress = () => {
-    console.log("on back button pressed");
+    console.log("on back button press");
     navigation.goBack();
   };
 
-  const onNextButtonPressed = () => {
-    console.log("on next button pressed");
-    navigation.navigate("SetScheduleScreen");
+  const onChangeChips = (Chips) => {
+    console.log(Chips);
+  };
+
+  const onRegisterButtonPress = () => {
+    console.log("Register");
+    navigation.navigate("SetRatesScreen");
+  };
+
+  const onSkipButtonPress = () => {
+    console.log("on Skip Button Press");
+    navigation.navigate("HomeScreen");
+  };
+
+  const onTermsOfUseTouched = () => {
+    console.log("on terms of use");
+    navigation.navigate("TermsOfUseScreen");
+  };
+
+  const onPrivacyPolicyTouched = () => {
+    console.log("privacy policy");
+    navigation.navigate("PrivacyPolicy");
   };
 
   return (
     <>
       <AppScreen style={[styles.screen]}>
-        {/* //////////// sub: Header ///////////// */}
-        <AppNavBar
-          navbarTitleText="Add More Details"
-          onBackButtonPress={onBackButtonPress}
-        />
-        {/* //////////// sub: Header ///////////// */}
-        <View style={[styles.container]}>
-          {/* //////////// sub: Body ///////////// */}
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          stickyHeaderIndices={[0]}
+        >
+          {/* ///////////// sub: Header /////////////// */}
+          <AppNavBar
+            navbarTitleText="Become a Professional ?"
+            navbarContainerStyle={[styles.appNavBar]}
+            onBackButtonPress={onBackButtonPress}
+          />
+          {/* ///////////// sub: Header /////////////// */}
+
+          {/* ///////////// sub: Body /////////////// */}
           <View style={[styles.bodyContainer]}>
-            {/* :: Select category  */}
-            <View style={[styles.categoryContainer]}>
-              <AppSelectBox data={categories} />
-            </View>
-            {/* :: Business Name  */}
+            {/* :: UserName  */}
             <TextInput
               activeUnderlineColor={AppColors.primaryBlack}
-              label="Enter Your Business Name"
-              onChangeText={(businessName) => setBusinessName(businessName)}
+              label="username"
+              onChangeText={(username) => setUserName(username)}
               style={[styles.textInput]}
-              value={businessName}
-              right={<TextInput.Affix text="/100" />}
+              value={username}
             />
+
             {/* :: About  */}
             <TextInput
               activeUnderlineColor={AppColors.primaryBlack}
@@ -112,108 +102,131 @@ function AddMoreDetails({ navigation }) {
               style={[styles.textInput]}
               value={website}
             />
-            {/* :: Next Button  */}
-            {/* //////////// sub: Footer ///////////// */}
-            <View style={[styles.buttonContainer]}>
-              <AppTouchableOpacity
-                style={[styles.buttonContainerTouch]}
-                onPress={onNextButtonPressed}
+            {/* :: Interest Chips  */}
+            <AppText style={[styles.text]}>Select Your Categories</AppText>
+            <SelectableChips
+              initialChips={categoryType}
+              onChangeChips={onChangeChips}
+              alertRequired={false}
+              chipStyle={[styles.chipsStyle]}
+              valueStyle={[styles.valueStyle]}
+              chipStyleSelected={[styles.chipStyleSelected]}
+              valueStyleSelected={[styles.valueStyleSelected]}
+            />
+            {/* :: Register */}
+            <AppTouchableOpacity
+              onPress={onRegisterButtonPress}
+              style={{ width: "100%" }}
+            >
+              <AppButton
+                ContainerStyle={{
+                  borderRadius: 100,
+                  elevation: 10,
+                  marginVertical: 14,
+                }}
+                textStyle={styles.buttonTextStyle}
+                title="Be A Professional"
+              ></AppButton>
+            </AppTouchableOpacity>
+            {/* :: Skip Button */}
+            <AppTouchableOpacity
+              onPress={onSkipButtonPress}
+              style={{ width: "100%" }}
+            >
+              <AppButton
+                ContainerStyle={{
+                  backgroundColor: "transparent",
+                  borderWidth: 2,
+                  borderRadius: 100,
+                  marginVertical: 14,
+                }}
+                textStyle={[
+                  styles.buttonTextStyle,
+                  { color: AppColors.primaryBlack },
+                ]}
+                title="Skip"
+              ></AppButton>
+            </AppTouchableOpacity>
+            {/* :: Terms Of Use & Privacy Policy */}
+            <AppText style={[styles.byRegisteringText]}>
+              By registering, you Confirm that you accept our{" "}
+              <AppText
+                style={{ color: "red", fontFamily: "SemiBold" }}
+                onPress={onTermsOfUseTouched}
               >
-                <AppButton
-                  ContainerStyle={[
-                    styles.buttonContainerStyle,
-                    { backgroundColor: AppColors.primaryBlack },
-                  ]}
-                  title="Next"
-                  textStyle={[
-                    styles.buttonText,
-                    { color: AppColors.primaryWhite },
-                  ]}
-                  style={[styles.button]}
-                />
-              </AppTouchableOpacity>
-            </View>
-            {/* //////////// sub: Footer ///////////// */}
+                Terms of Use
+              </AppText>{" "}
+              and{" "}
+              <AppText
+                style={{ color: "red", fontFamily: "SemiBold" }}
+                onPress={onPrivacyPolicyTouched}
+              >
+                Privacy Policy
+              </AppText>
+            </AppText>
           </View>
-          {/* //////////// sub: Body ///////////// */}
-        </View>
+          {/* ///////////// sub: Body /////////////// */}
+        </ScrollView>
       </AppScreen>
     </>
   );
 }
 
 const styles = StyleSheet.create({
-  about: {
-    width: "100%",
-    maxHeight: 150,
-  },
-
-  buttonContainer: {
-    alignItems: "center",
-    marginVertical: 18,
-    width: "100%",
-  },
-
-  buttonContainerStyle: {
-    borderColor: AppColors.primaryBlack,
-    borderRadius: 100,
-    borderWidth: 2,
-    backgroundColor: "transparent",
-    marginVertical: 8,
-    padding: 10,
-  },
-
-  buttonContainerTouch: {
-    width: "100%",
-    alignItems: "center",
-  },
-
-  buttonText: {
-    color: AppColors.primaryBlack,
-    fontSize: 18,
-    fontFamily: "SemiBold",
+  byRegisteringText: {
+    fontFamily: "Medium",
+    marginTop: 12,
+    textAlign: "center",
   },
 
   bodyContainer: {
-    width: "90%",
     alignItems: "center",
+    padding: width * 0.05,
   },
 
-  businessName: {
-    width: "100%",
-    marginVertical: 16,
-  },
-
-  categoryContainer: {
-    alignItems: "center",
-    width: "100%",
-    marginVertical: 16,
-  },
-
-  container: {
-    flex: 1,
-    alignItems: "center",
-  },
-
-  header: {
-    fontSize: 24,
+  buttonTextStyle: {
+    color: AppColors.primaryWhite,
+    fontSize: 16,
     fontFamily: "SemiBold",
-    textAlign: "center",
-    textTransform: "capitalize",
-    marginVertical: 12,
+  },
+
+  chipsStyle: {
+    backgroundColor: AppColors.primaryWhite,
+    borderColor: AppColors.primaryBlack,
+  },
+
+  chipStyleSelected: {
+    backgroundColor: AppColors.primaryBlack,
   },
 
   screen: {
     backgroundColor: AppColors.primaryWhite,
+    // backgroundColor: "red",
     flex: 1,
     width: width,
   },
 
+  text: {
+    fontSize: 18,
+    fontFamily: "SemiBold",
+    marginVertical: width * 0.05,
+    borderBottomWidth: 2,
+  },
+
   textInput: {
     backgroundColor: AppColors.primaryWhite,
-    marginVertical: 12,
+    marginVertical: width * 0.035,
     width: "100%",
-    // paddingHorizontal: 0,
+  },
+
+  valueStyle: {
+    color: AppColors.primaryBlack,
+    fontSize: 18,
+    fontWeight: "700",
+  },
+
+  valueStyleSelected: {
+    color: AppColors.primaryWhite,
   },
 });
 export default AddMoreDetails;

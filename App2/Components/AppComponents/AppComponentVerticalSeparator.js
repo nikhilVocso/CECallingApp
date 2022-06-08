@@ -3,7 +3,7 @@ import { View, StyleSheet } from "react-native";
 /////////////////////////////////////////////////////////
 import AppColors from "../../Config/AppColors";
 /////////////////////////////////////////////////////////
-function AppComponentVerticalSeparator(props) {
+function AppComponentVerticalSeparator({ style }) {
   return <View style={styles.container}></View>;
 }
 /////////////////////////////////////////////////////////

@@ -1,4 +1,4 @@
-import { StatusBar } from "expo-status-bar";
+import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 ///////////////////////////// main: App Components ////////////////////////////////////
 import AppBigButton from "./App2/Components/AppComponents/AppBigButton";
@@ -64,20 +64,17 @@ import SocialSignInOptions from "./App2/Components/SignInScreenComponent/SocialS
 
 ///////////////////////////// main: Others Screens ////////////////////////////////////
 import AddMoneyScreen from "./App2/Screens/Others/AddMoneyScreen";
-import AvailabilityScreen from "./App2/Screens/Others/AvailabilityScreen";
 import CallBusyScreen from "./App2/Screens/Others/CallBusyScreen";
 import CallDialingScreen from "./App2/Screens/Others/CallDialingScreen";
 import CallFinishRatingScreen from "./App2/Screens/Others/CallFinishRatingScreen";
-import CallHistoryScreen from "./App2/Components/Others/CallCount";
+import CallHistoryScreen from "./App2/Screens/Others/CallHistoryScreen";
 import CallHomeScreen from "./App2/Screens/Others/CallHomeScreen";
 import CallRingingScreen from "./App2/Screens/Others/CallRingingScreen";
 import CallScreen from "./App2/Screens/Others/CallScreen";
 import CECallSettings from "./App2/Screens/Others/CECallSettings";
-import CEWalletsScreen from "./App2/Screens/Others/CEWalletScreen";
 import ChatScreen from "./App2/Screens/Others/ChatScreen";
 import ChatWindowScreen from "./App2/Screens/Others/ChatWindowScreen";
 import ConsultantScreen from "./App2/Screens/Others/ConsultantScreen";
-import DayAvailability from "./App2/Screens/Others/DayAvailability";
 import HomeScreen from "./App2/Screens/Others/HomeScreen";
 import InitiateCallScreen from "./App2/Screens/Others/InitiateCallScreen";
 import InsufficientBalanceScreen from "./App2/Screens/Others/InsufficientBalanceScreen";
@@ -91,7 +88,6 @@ import ReviewsScreen from "./App2/Screens/ProfileScreen/ReviewsScreen";
 import ScheduleScreen from "./App2/Screens/ProfileScreen/ScheduleScreen";
 
 ///////////////////////////// main: Sign In Screen ////////////////////////////////////
-import AddInterestScreen from "./App2/Screens/SignInScreen/AddInterestScreen";
 import AddMoreDetails from "./App2/Screens/SignInScreen/AddMoreDetails";
 import ConfirmationMailSendScreen from "./App2/Screens/SignInScreen/ConfirmationMailSendScreen";
 import ConfirmationScreen from "./App2/Screens/SignInScreen/ConfirmationScreen";
@@ -115,17 +111,39 @@ import TopBarNavigation from "./App2/Navigation/TopBarNavigation";
 import TabBarNavigation from "./App2/Navigation/TabBarNavigation";
 
 //////////// currently working ///////////////////////
-import Rough from "./App2/Screens/Rough";
 import AppModal from "./App2/Components/AppComponents/AppModal";
 import SplashScreen from "./App2/Screens/SignInScreen/SplashScreen";
+
+//////////////////////// current working ////////////////////
+import ProfileDetailsScreen from "./App2/Screens/Others/ProfileDetailsScreen";
+import AboutConsultEaseScreen from "./App2/Screens/Others/AboutConsultEaseScreen";
+import ContactScreen from "./App2/Screens/Others/ContactScreen";
+
+import ReviewCard from "./App2/Components/Others/ReviewCard";
+import ScheduleCard from "./App2/Components/Others/ScheduleCard";
+import CameraScreen from "./App2/Screens/Others/CameraScreen";
+
+//////////////////////
+import WithdrawalRequestScreen from "./App2/Screens/Others/WithdrawalRequestScreen";
+import WithdrawalMessageScreen from "./App2/Screens/Others/WithdrawalMessageScreen";
+import AddMoneyMessageScreen from "./App2/Screens/Others/AddMoneyMessageScreen";
+import AddMobileNumberScreen from "./App2/Screens/SignInScreen/AddMobileNumberScreen";
+
+import Rough from "./App2/Screens/SignInScreen/Rough";
+import AddInterestScreen from "./App2/Screens/SignInScreen/AddInterestScreen";
+import CEWalletScreen from "./App2/Screens/Others/CEWalletScreen";
+import SetRatesScreen from "./App2/Screens/SignInScreen/SetRatesScreen";
 
 export default function App() {
   return (
     <>
       <View style={styles.container}>
+        {/* main: Currently Working  */}
         {/* <Navigation /> */}
-        {/* <HomeScreen /> */}
-        <WelcomeScreen />
+        {/* <WelcomeScreen /> */}
+        <AddMobileNumberScreen />
+        {/* <SetScheduleScreen /> */}
+        {/* <Rough /> */}
       </View>
     </>
   );

@@ -29,6 +29,11 @@ function SignInScreen({ navigation }) {
     navigation.navigate("SignUpOptionsScreen");
   };
 
+  const onBackToWelcomeScreen = () => {
+    console.log("on back to welcome screen");
+    navigation.navigate("WelcomeScreen");
+  };
+
   return (
     <>
       <AppScreen style={styles.screen}>
@@ -67,10 +72,29 @@ function SignInScreen({ navigation }) {
                   title="Sign In"
                 ></AppButton>
               </AppTouchableOpacity>
+              {/* :: Back Button */}
+              <AppTouchableOpacity onPress={onBackToWelcomeScreen}>
+                <AppButton
+                  ContainerStyle={{
+                    borderRadius: 100,
+                    marginVertical: 12,
+                    backgroundColor: AppColors.primaryWhite,
+                    elevation: 10,
+                    // borderWidth: 2,
+                  }}
+                  textStyle={[
+                    styles.buttonTextStyle,
+                    { color: AppColors.primaryBlack },
+                  ]}
+                  title="Back"
+                ></AppButton>
+              </AppTouchableOpacity>
               {/* :: Forget Password Button */}
               <AppTouchableOpacity onPress={onForgetPasswordPressed}>
                 <AppButton
-                  ContainerStyle={{ backgroundColor: "transparent" }}
+                  ContainerStyle={{
+                    backgroundColor: "transparent",
+                  }}
                   textStyle={[styles.buttonTextStyle, { color: "black" }]}
                   title="Forget Password ? "
                 ></AppButton>

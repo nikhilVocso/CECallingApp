@@ -26,6 +26,7 @@ function CECallSettings({
   headTitle = "Allow users to call you for live video/voice call consulting. Set your own rates and get real time payment fro each minute of consulting.",
   navbarTitleText = "live call settings",
   callRateInfoFooterText = "Minimum allowed rate is 15/minute consultese will charge 30% fee for eacg revenue generated",
+  navigation,
 }) {
   ///////////// sub: Video Calling Hooks //////////////
   const [isVideoEnabled, setIsVideoEnabled] = useState(false);
@@ -109,6 +110,7 @@ function CECallSettings({
 
   const onBackButtonPress = () => {
     console.log("On Back Button Press nikhil");
+    navigation.goBack();
   };
 
   const onUpdateRatesPress = () => {

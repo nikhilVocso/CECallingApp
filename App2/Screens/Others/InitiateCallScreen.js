@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { View, StyleSheet, Dimensions, TextInput, Modal } from "react-native";
+import {
+  Alert,
+  View,
+  StyleSheet,
+  Dimensions,
+  TextInput,
+  Modal,
+} from "react-native";
 //////////////////////////////////////////////////////////////////////////////////////
 import AppColors from "../../Config/AppColors";
 import AppText from "../../Components/AppComponents/AppText";
@@ -24,20 +31,37 @@ const categoryData = [
 function InitiateCallScreen({
   name = "name",
   videoCallCharge = 100,
-  voiceCallCharge = 100,
-  totalBalance = 100,
+  voiceCallCharge = 165,
+  totalBalance = 150,
   navigation,
 }) {
   const [text, setText] = React.useState("");
 
   const onVideoCallPress = () => {
     console.log("on Video call");
-    navigation.navigate("CallDialingScreen");
+    videoCallCharge < totalBalance
+      ? navigation.navigate("CallDialingScreen")
+      : navigation.navigate("CallDialingScreen");
   };
 
   const onAudioCallPress = () => {
     console.log("on Voice call");
-    navigation.navigate("CallDialingScreen");
+    voiceCallCharge < totalBalance
+      ? navigation.navigate("CallDialingScreen")
+      : Alert.alert(
+          `Insufficient Balance ₹ ${totalBalance}`,
+          "You don't have enough balance to make a call, Please add some credit in your wallet",
+          [
+            {
+              text: "Cancel",
+              onPress: () => navigation.goBack(),
+            },
+            {
+              text: "Okay",
+              onPress: () => navigation.navigate("AddMoneyScreen"),
+            },
+          ]
+        );
   };
 
   const onAddMoreCreditPress = () => {

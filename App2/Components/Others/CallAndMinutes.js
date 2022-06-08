@@ -35,10 +35,10 @@ const graphData = [
 const VictoryZoomVoronoiContainer = createContainer("zoom", "voronoi");
 ////////////////////////////////////////////////////////////////////////////////////
 
-function CallAndMinutes(props) {
+function CallAndMinutes({ ContainerStyle }) {
   return (
     <>
-      <View style={styles.container}>
+      <View style={[styles.container, ContainerStyle]}>
         {/* //////////////// sub: Title /////////////////// */}
         <View style={styles.titleTextContainer}>
           <AppText style={[styles.secondaryText, styles.titleText]}>

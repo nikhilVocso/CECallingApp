@@ -9,95 +9,128 @@ import AppComponentHorizontalSeparator from "../../Components/AppComponents/AppC
 ///////////////////////////////////////////////////////////////////////////////////////////
 const consultantListCardData = [
   {
-    callTime: 1200,
-    categories: "coder",
-    city: "delhi",
+    available: true,
+    name: "nikhil menan",
+    profile: "Coder",
+    rating: 3,
+    totalRating: 10,
+    ProfilePicture: require("../../Assets/photo.jpeg"),
+    verify: true,
     id: 1,
-    image: require("../../Assets/photo.jpeg"),
-    name: "Nikhil Menan",
-    profile: "GST",
-    verify: true,
-    available: true,
   },
   {
-    callTime: 1200,
-    categories: "coder",
-    city: "delhi",
-    id: 2,
-    image: require("../../Assets/photo.jpeg"),
-    name: "Nikhil Menan",
-    profile: "GST",
-    verify: true,
     available: false,
-  },
-  {
-    callTime: 1200,
-    categories: "coder",
-    city: "delhi",
-    id: 3,
-    image: require("../../Assets/photo.jpeg"),
-    name: "Nikhil Menan",
-    profile: "GST",
+    name: "nikhil menan",
+    profile: "Coder",
+    rating: 6,
+    totalRating: 10,
+    ProfilePicture: require("../../Assets/photo.jpeg"),
     verify: false,
-    available: true,
+    id: 2,
   },
   {
-    callTime: 1200,
-    categories: "coder",
-    city: "delhi",
-    id: 4,
-    image: require("../../Assets/photo.jpeg"),
-    name: "Nikhil Menan",
-    profile: "GST",
-    verify: true,
     available: true,
+    name: "nikhil menan",
+    profile: "Coder",
+    rating: 5,
+    totalRating: 10,
+    ProfilePicture: require("../../Assets/photo.jpeg"),
+    verify: true,
+    id: 3,
   },
   {
-    callTime: 1200,
-    categories: "coder",
-    city: "delhi",
-    id: 5,
-    image: require("../../Assets/photo.jpeg"),
-    name: "Nikhil Menan",
-    profile: "GST",
-    verify: true,
     available: false,
+    name: "nikhil menan",
+    profile: "Coder",
+    rating: 7,
+    totalRating: 10,
+    ProfilePicture: require("../../Assets/photo.jpeg"),
+    verify: true,
+    id: 4,
+  },
+  {
+    available: true,
+    name: "nikhil menan",
+    profile: "Coder",
+    rating: 5,
+    totalRating: 10,
+    ProfilePicture: require("../../Assets/photo.jpeg"),
+    verify: false,
+    id: 5,
+  },
+  {
+    available: true,
+    name: "nikhil menan",
+    profile: "Coder",
+    rating: 9,
+    totalRating: 10,
+    profilePicture: require("../../Assets/photo.jpeg"),
+    verify: true,
+    id: 6,
+  },
+  {
+    available: true,
+    name: "nikhil menan",
+    profile: "Coder",
+    rating: 9,
+    totalRating: 10,
+    profilePicture: require("../../Assets/photo.jpeg"),
+    verify: true,
+    id: 7,
+  },
+  {
+    available: true,
+    name: "nikhil menan",
+    profile: "Coder",
+    rating: 9,
+    totalRating: 10,
+    profilePicture: require("../../Assets/photo.jpeg"),
+    verify: true,
+    id: 8,
+  },
+  {
+    available: true,
+    name: "nikhil menan",
+    profile: "Coder",
+    rating: 9,
+    totalRating: 10,
+    profilePicture: require("../../Assets/photo.jpeg"),
+    verify: true,
+    id: 9,
+  },
+  {
+    available: true,
+    name: "nikhil menan",
+    profile: "Coder",
+    rating: 9,
+    totalRating: 10,
+    profilePicture: require("../../Assets/photo.jpeg"),
+    verify: true,
+    id: 10,
   },
 ];
 ///////////////////////////////////////////////////////////////////////////////////////////
 function ConsultantScreen({ navigation }) {
-  const [refreshing, setRefreshing] = useState(false);
-
-  const onRefresh = () => {
-    setRefreshing(true);
-    Alert.alert("Alert");
-  };
-
   return (
     <>
       <AppScreen style={styles.screen}>
         <View style={styles.consultantListCard}>
           <FlatList
+            showsVerticalScrollIndicator={false}
             data={consultantListCardData}
             keyExtractor={(item) => item.id}
             renderItem={({ item }) => (
               <>
                 <ConsultantListCard
-                  callTime={item.callTime}
-                  categories={item.categories}
-                  city={item.city}
-                  image={item.image}
+                  available={item.available}
                   name={item.name}
                   profile={item.profile}
-                  style={styles.consultantListCardStyle}
+                  profilePicture={item.profilePicture}
+                  rating={item.rating}
+                  totalRating={item.totalRating}
                   verify={item.verify}
-                  available={item.available}
-                  refreshing={refreshing}
-                  onRefresh={onRefresh}
                   navigation={navigation}
                 />
-
-                {/* <AppComponentHorizontalSeparator /> */}
               </>
             )}
             ListHeaderComponent={

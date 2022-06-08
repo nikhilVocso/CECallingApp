@@ -218,11 +218,19 @@ function SetScheduleScreen({ navigation }) {
     navigation.navigate("HomeScreen");
   };
 
+  const onBackButtonPress = () => {
+    console.log("on Back");
+    navigation.goBack();
+  };
+
   return (
     <>
       <AppScreen style={styles.screen}>
         <ScrollView stickyHeaderIndices={[0]}>
-          <AppNavBar navbarTitleText="Set Schedule Screen" />
+          <AppNavBar
+            navbarTitleText="Set Your Schedule"
+            onBackButtonPress={onBackButtonPress}
+          />
           <View style={styles.container}>
             <ScheduleScreenHeader />
             <View style={{ marginBottom: 25 }}>

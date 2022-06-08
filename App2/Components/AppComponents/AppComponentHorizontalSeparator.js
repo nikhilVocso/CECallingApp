@@ -3,15 +3,15 @@ import { View, StyleSheet } from "react-native";
 /////////////////////////////////////////////////////////////
 import AppColors from "../../Config/AppColors";
 /////////////////////////////////////////////////////////////
-function AppComponentHorizontalSeparator(props) {
-  return <View style={styles.container}></View>;
+function AppComponentHorizontalSeparator({ style }) {
+  return <View style={[styles.container, style]}></View>;
 }
 /////////////////////////////////////////////////////////////
 const styles = StyleSheet.create({
   container: {
     width: "100%",
-    borderWidth: 0.2,
-    borderColor: AppColors.primaryBlack,
+    borderColor: AppColors.fourthBlack,
+    borderWidth: 0.17,
   },
 });
 

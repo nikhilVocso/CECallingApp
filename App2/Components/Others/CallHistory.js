@@ -6,18 +6,29 @@ import {
   ScrollView,
   FlatList,
 } from "react-native";
-//////////////////////////////////////////////////////////////////////////////////////////////////
+
 import AppText from "../AppComponents/AppText";
 import AppColors from "../../Config/AppColors";
 import AppComponentHorizontalSeparator from "../AppComponents/AppComponentHorizontalSeparator";
 import AppFABButton from "../AppComponents/AppFABButton";
 import AppButton from "../AppComponents/AppButton";
 import AppTouchableOpacity from "../AppComponents/AppTouchableOpacity";
-//////////////////////////////////////////////////////////////////////////////////////////////////
-const { width, height } = Dimensions.get("screen");
-//////////////////////////////////////////////////////////////////////////////////////////////////
+// import AppButton from "./AppBigButton";
 
-function CallHistory({ data, isCEWalletScreen, isCallHistoryScreen }) {
+const { width, height } = Dimensions.get("screen");
+
+function CallHistory({
+  isCEWalletScreen,
+  isCallHistoryScreen,
+  iconType = "call-made",
+  title = "nikhil menan",
+  subTitle = "devloper",
+  date = "25 Nov 2022",
+  time = "11:30",
+  duration = "48:22",
+  idOrTotalCall = 4512545,
+  charges = 250,
+}) {
   const [play, setPlay] = useState(false);
 
   const onPlayButton = () => {
@@ -27,107 +38,91 @@ function CallHistory({ data, isCEWalletScreen, isCallHistoryScreen }) {
 
   return (
     <>
-      <View style={styles.container}>
-        <View style={styles.titleTextContainer}>
-          <AppText style={[styles.secondaryText, styles.titleText]}>
-            Call History
-          </AppText>
-        </View>
-        {/* ///////////////////////////////////////// */}
-        <FlatList
-          data={data}
-          keyExtractor={(item) => item.id}
-          renderItem={({ item }) => (
-            <>
-              {/* ///////////////////////////////////////// */}
-              <View style={styles.callDetailsContainer}>
-                <AppFABButton
-                  color="red"
-                  name={item.iconType}
-                  style={styles.callIcon}
-                  size={22}
-                />
-                <View style={styles.detailsContainer}>
-                  <View style={styles.columnOne}>
-                    <AppText
-                      style={[
-                        styles.fourthText,
-                        { fontFamily: "Bold", textTransform: "capitalize" },
-                      ]}
-                    >
-                      {item.title}
-                    </AppText>
-                    <AppText style={styles.fourthText}>{item.subTitle}</AppText>
-                    <AppText style={styles.fourthText}>
-                      {item.date}; {item.time}
-                    </AppText>
-                  </View>
-                  <View style={styles.columnTwo}>
-                    <View
-                      style={{
-                        flexDirection: "row",
-                        alignItems: "center",
-                        justifyContent: "flex-start",
-                      }}
-                    >
-                      {item.duration && (
-                        <>
-                          <AppText style={styles.fourthText}>
-                            {item.duration}
-                          </AppText>
-                          <AppTouchableOpacity onPress={onPlayButton}>
-                            <AppFABButton
-                              color="black"
-                              name={play ? "play-arrow" : "pause"}
-                              size={20}
-                              style={{
-                                padding: 0,
-                                backgroundColor: "transparent",
-                              }}
-                            />
-                          </AppTouchableOpacity>
-                        </>
-                      )}
-                    </View>
-                    <AppText style={styles.fourthText}>
-                      {isCallHistoryScreen && `#${item.idOrTotalCall}`}
-                      {isCEWalletScreen && `CE#${item.idOrTotalCall}`}
-                    </AppText>
-                    <AppText
-                      style={[
-                        styles.fourthText,
-                        { color: "red", fontFamily: "Bold" },
-                      ]}
-                    >
-                      ₹{" "}
-                      <AppText
-                        style={[
-                          styles.fourthText,
-                          { color: "red", fontFamily: "Bold" },
-                        ]}
-                      >
-                        {item.charges}
-                      </AppText>
-                    </AppText>
-                  </View>
-                </View>
-              </View>
-              {/* ////////////////////////////////////// */}
-              <AppComponentHorizontalSeparator />
-            </>
-          )}
+      {/* <View style={styles.container}> */}
+      {/* ////////////////////////////////// */}
+      <View style={styles.callDetailsContainer}>
+        <AppFABButton
+          color="red"
+          name={iconType}
+          style={styles.callIcon}
+          size={22}
         />
-        {/* ///////////////////////////////////////// */}
+        <View style={styles.detailsContainer}>
+          <View style={styles.columnOne}>
+            <AppText
+              style={[
+                styles.fourthText,
+                { fontFamily: "Bold", textTransform: "capitalize" },
+              ]}
+            >
+              {title}
+            </AppText>
+            <AppText style={styles.fourthText}>{subTitle}</AppText>
+            <AppText style={styles.fourthText}>
+              {date}; {time}
+            </AppText>
+          </View>
+          <View style={styles.columnTwo}>
+            {isCallHistoryScreen && (
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  justifyContent: "flex-start",
+                }}
+              >
+                {duration && (
+                  <>
+                    <AppText style={styles.fourthText}>{duration}</AppText>
+                    <AppTouchableOpacity onPress={onPlayButton}>
+                      <AppFABButton
+                        color="black"
+                        name={play ? "play-arrow" : "pause"}
+                        size={20}
+                        style={{
+                          padding: 0,
+                          backgroundColor: "transparent",
+                        }}
+                      />
+                    </AppTouchableOpacity>
+                  </>
+                )}
+              </View>
+            )}
+
+            <AppText style={styles.fourthText}>
+              {isCallHistoryScreen && `#${idOrTotalCall}`}
+              {isCEWalletScreen && `CE#${idOrTotalCall}`}
+            </AppText>
+            <AppText
+              style={[styles.fourthText, { color: "red", fontFamily: "Bold" }]}
+            >
+              ₹{" "}
+              <AppText
+                style={[
+                  styles.fourthText,
+                  { color: "red", fontFamily: "Bold" },
+                ]}
+              >
+                {charges}
+              </AppText>
+            </AppText>
+          </View>
+        </View>
       </View>
+      {/* ////////////////////////////////// */}
+      <AppComponentHorizontalSeparator />
+      {/* </View> */}
     </>
   );
 }
-//////////////////////////////////////////////////////////////////////////////////////////////////
+
 const styles = StyleSheet.create({
   callDetailsContainer: {
+    backgroundColor: AppColors.primaryWhite,
     flexDirection: "row",
     justifyContent: "flex-start",
-    alignItems: "flex-start",
+    alignItems: "center",
     marginVertical: 15,
   },
 
@@ -135,6 +130,7 @@ const styles = StyleSheet.create({
     backgroundColor: AppColors.secondaryWhite,
     backgroundColor: "transparent",
     marginRight: 6,
+    paddingLeft: 0,
   },
 
   columnOne: {
@@ -170,6 +166,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontFamily: "Medium",
     paddingVertical: 2,
+    textTransform: "capitalize",
   },
 
   primaryText: {

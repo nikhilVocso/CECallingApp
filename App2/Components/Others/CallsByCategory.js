@@ -15,10 +15,10 @@ const pieData = [
   { source: "LinkedIn", y: 55 },
 ];
 /////////////////////////////////////////////////////////////////////
-function CallsByCategory({ totalCount = "25.6K" }) {
+function CallsByCategory({ totalCount = "25.6K", ContainerStyle }) {
   return (
     <>
-      <View style={styles.container}>
+      <View style={[styles.container, ContainerStyle]}>
         <View style={styles.titleTextContainer}>
           <AppText style={[styles.secondaryText, styles.titleText]}>
             Call History

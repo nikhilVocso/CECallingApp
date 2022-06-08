@@ -19,7 +19,15 @@ import AppComponentHorizontalSeparator from "../AppComponents/AppComponentHorizo
 import AppComponentVerticalSeparator from "../AppComponents/AppComponentVerticalSeparator";
 import CallHistoryDetails from "../Others/CallHistoryDetails";
 ///////////////////////////////////////////////////////////////////////////////
-function CallHistoryScreen({ isCallHistoryScreen, isCEWalletScreen }) {
+function CallHistoryScreen({
+  isCallHistoryScreen,
+  isCEWalletScreen,
+  ContainerStyle,
+  title = "Title",
+  professionalAccount,
+  onAddMoneyButtonPress,
+  onWithDrawPress,
+}) {
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => {
     setIsEnabled((previousState) => !previousState);
@@ -39,24 +47,14 @@ function CallHistoryScreen({ isCallHistoryScreen, isCEWalletScreen }) {
     }
   };
 
-  const onAddMoneyButtonPress = () => {
-    console.log("On Add Money Button Press");
-  };
-
-  const onWithDrawPress = () => {
-    console.log("On WithDraw Button Press");
-  };
-
   return (
     <>
       {/* ///////////////////////////////// */}
-      <View style={styles.container}>
+      <View style={[styles.container, ContainerStyle]}>
         <View>
           <View style={styles.totalCallsContainer}>
             <View style={styles.totalCall}>
-              <AppText style={[styles.secondaryText]}>
-                Total Call Connected
-              </AppText>
+              <AppText style={[styles.secondaryText]}>{title}</AppText>
               <View style={styles.totalCallCount}>
                 <AppText
                   style={[
@@ -105,34 +103,42 @@ function CallHistoryScreen({ isCallHistoryScreen, isCEWalletScreen }) {
                   ]}
                 />
               </AppTouchableOpacity>
-              <AppTouchableOpacity onPress={onWithDrawPress}>
-                <AppButton
-                  title="Withdraw"
-                  ContainerStyle={[styles.moneyButtonStyle]}
-                  textStyle={styles.moneyButtonTextStyle}
-                />
-              </AppTouchableOpacity>
+              {professionalAccount && (
+                <AppTouchableOpacity onPress={onWithDrawPress}>
+                  <AppButton
+                    title="Withdraw"
+                    ContainerStyle={[styles.moneyButtonStyle]}
+                    textStyle={styles.moneyButtonTextStyle}
+                  />
+                </AppTouchableOpacity>
+              )}
             </View>
           )}
         </View>
-        <AppComponentHorizontalSeparator />
+        {professionalAccount && <AppComponentHorizontalSeparator />}
+
         {/* /////////////////////////////////////// */}
-        <View style={styles.callDetailsContainer}>
-          <CallHistoryDetails />
-          <AppComponentVerticalSeparator />
-          <CallHistoryDetails />
-        </View>
-        <View style={styles.callDetailsContainer}>
-          <CallHistoryDetails />
-          <AppComponentVerticalSeparator />
-          <CallHistoryDetails />
-          {isCallHistoryScreen && (
-            <>
+        {professionalAccount && (
+          <>
+            <View style={styles.callDetailsContainer}>
+              <CallHistoryDetails />
               <AppComponentVerticalSeparator />
               <CallHistoryDetails />
-            </>
-          )}
-        </View>
+            </View>
+            <View style={styles.callDetailsContainer}>
+              <CallHistoryDetails />
+              <AppComponentVerticalSeparator />
+              <CallHistoryDetails />
+              {isCallHistoryScreen && (
+                <>
+                  <AppComponentVerticalSeparator />
+                  <CallHistoryDetails />
+                </>
+              )}
+            </View>
+          </>
+        )}
+
         {/* /////////////////////////////////////// */}
       </View>
     </>
